@@ -1,9 +1,9 @@
 import Image from "next/image"
 
 const stats = [
-  { value: "15+", label: "Years Experience" },
-  { value: "50+", label: "Countries Served" },
-  { value: "1M+", label: "Products Delivered" },
+  { value: "35+", label: "Years Experience" },
+  { value: "1989", label: "Established" },
+  { value: "2", label: "Product Lines" },
   { value: "100%", label: "Quality Commitment" },
 ]
 
@@ -14,10 +14,10 @@ export function AboutSection() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Image */}
           <div className="relative">
-            <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
+            <div className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-xl">
               <Image
-                src="/images/factory-floor.jpg"
-                alt="El Mueiz Factory production facility"
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-04-14%20at%2022.29.27%20%282%29-Ev4Y8GyNklFTwRU48114nxVOvNJTO1.jpeg"
+                alt="El Mueiz Factory BAYAN rope products"
                 fill
                 className="object-cover"
               />
@@ -33,17 +33,20 @@ export function AboutSection() {
               About Our Factory
             </p>
             <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl mb-6 text-balance">
-              Crafting Quality Products for Global Markets
+              Leading Plastics Manufacturer in Sudan
             </h2>
+            <p className="text-lg text-muted-foreground mb-2" dir="rtl">
+              مصنع المعز للبلاستيك - رائد صناعة البلاستيك منذ عام 1989
+            </p>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>
-                El Mueiz Factory has established itself as a leading manufacturer of PP ropes and PVC shoes, serving customers across the globe with premium quality products at competitive prices.
+                Since 1989, El Mueiz Factory has been a pioneer in plastics manufacturing in Sudan. Based in Atbara Industrial Area, we specialize in producing high-quality PP ropes under our BAYAN brand and durable PVC footwear.
               </p>
               <p>
-                Our state-of-the-art manufacturing facility is equipped with modern machinery and operated by skilled professionals who are committed to delivering excellence in every product.
+                Our factory combines traditional craftsmanship with modern manufacturing techniques to deliver products that meet the highest standards of quality and durability.
               </p>
               <p>
-                We take pride in our ability to customize products according to client specifications while maintaining the highest standards of quality control throughout the production process.
+                We take pride in being a trusted supplier to businesses and retailers across Sudan, offering competitive prices and reliable delivery.
               </p>
             </div>
 

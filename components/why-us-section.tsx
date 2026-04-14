@@ -3,33 +3,33 @@ import { Factory, Globe, Shield, Truck, Users, Zap } from "lucide-react"
 const features = [
   {
     icon: Factory,
-    title: "Modern Facility",
-    description: "State-of-the-art manufacturing equipment ensuring consistent quality and high production capacity.",
+    title: "35+ Years Experience",
+    description: "Established in 1989, we bring decades of expertise in plastics manufacturing to every product we make.",
   },
   {
     icon: Shield,
     title: "Quality Assured",
-    description: "Rigorous quality control processes at every stage of production to meet international standards.",
+    description: "Rigorous quality control on all BAYAN ropes and PVC footwear to ensure durability and reliability.",
   },
   {
     icon: Globe,
-    title: "Global Reach",
-    description: "Serving customers in over 50 countries with reliable shipping and export documentation support.",
+    title: "Sudanese Made",
+    description: "Proudly manufactured in Atbara Industrial Area, supporting local industry and employment.",
   },
   {
     icon: Truck,
-    title: "Timely Delivery",
-    description: "Efficient logistics and inventory management to ensure on-time delivery for all orders.",
+    title: "Reliable Delivery",
+    description: "Efficient logistics across Sudan ensuring your orders arrive on time, every time.",
   },
   {
     icon: Users,
-    title: "Expert Team",
-    description: "Experienced professionals dedicated to providing excellent customer service and technical support.",
+    title: "Customer Focused",
+    description: "Dedicated team providing personalized service and support for all your product needs.",
   },
   {
     icon: Zap,
     title: "Competitive Pricing",
-    description: "Optimized production processes allow us to offer the best value without compromising quality.",
+    description: "High quality products at fair prices - best value without compromising on quality.",
   },
 ]
 

@@ -6,6 +6,13 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Mail, MapPin, Phone, Send } from "lucide-react"
 
+const phoneNumbers = [
+  "0912330434",
+  "0912503935",
+  "0123767367",
+  "0123083564",
+]
+
 export function ContactSection() {
   const [formState, setFormState] = useState({
     name: "",
@@ -70,10 +77,18 @@ export function ContactSection() {
                   <Phone className="h-5 w-5 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-medium text-foreground">Call Us</h3>
-                  <a href="tel:+1234567890" className="text-muted-foreground hover:text-primary transition-colors">
-                    +1 (234) 567-890
-                  </a>
+                  <h3 className="font-medium text-foreground mb-2">Call Us</h3>
+                  <div className="grid grid-cols-2 gap-2">
+                    {phoneNumbers.map((phone) => (
+                      <a 
+                        key={phone}
+                        href={`tel:+249${phone.slice(1)}`} 
+                        className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                      >
+                        {phone}
+                      </a>
+                    ))}
+                  </div>
                 </div>
               </div>
 
@@ -84,8 +99,11 @@ export function ContactSection() {
                 <div>
                   <h3 className="font-medium text-foreground">Visit Us</h3>
                   <p className="text-muted-foreground">
-                    Industrial Zone, Manufacturing District<br />
-                    City, Country
+                    Atbara Industrial Area<br />
+                    Sudan
+                  </p>
+                  <p className="text-muted-foreground text-sm mt-1" dir="rtl">
+                    عطبرة المنطقة الصناعية - مصنع المعز للبلاستيك
                   </p>
                 </div>
               </div>
@@ -161,7 +179,7 @@ export function ContactSection() {
                       type="tel"
                       value={formState.phone}
                       onChange={handleChange}
-                      placeholder="+1 234 567 890"
+                      placeholder="+249 912 330 434"
                     />
                   </div>
                 </div>

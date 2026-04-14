@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 
 const navigation = {
   main: [
@@ -9,7 +10,7 @@ const navigation = {
     { name: "Contact", href: "#contact" },
   ],
   products: [
-    { name: "PP Rope", href: "#products" },
+    { name: "PP Rope (BAYAN)", href: "#products" },
     { name: "PVC Shoes", href: "#products" },
     { name: "Custom Orders", href: "#contact" },
   ],
@@ -17,19 +18,30 @@ const navigation = {
 
 export function Footer() {
   return (
-    <footer className="bg-foreground text-background">
+    <footer className="bg-[#1a365d] text-white">
       <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand */}
           <div className="md:col-span-2">
             <Link href="/" className="inline-block">
-              <span className="text-xl font-bold tracking-tight">
-                El Mueiz<span className="text-primary">Factory</span>
-              </span>
+              <Image
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Profile-2CdfracH3QZMn56l7DE39HSeGZ4qFz.jpg"
+                alt="El Mueiz Factory Logo"
+                width={80}
+                height={80}
+                className="h-16 w-auto rounded"
+              />
             </Link>
-            <p className="mt-4 text-background/70 leading-relaxed max-w-sm">
-              Leading manufacturer of high-quality PP rope and PVC shoes, serving customers worldwide with reliable products and exceptional service.
+            <p className="mt-4 text-white/70 leading-relaxed max-w-sm">
+              Leading manufacturer of high-quality PP rope (BAYAN brand) and PVC shoes, serving customers across Sudan since 1989.
             </p>
+            <p className="mt-2 text-white/60 text-sm" dir="rtl">
+              مصنع المعز للبلاستيك - رائد صناعة البلاستيك منذ عام 1989
+            </p>
+            <div className="mt-4 text-sm text-white/60">
+              <p>Atbara Industrial Area, Sudan</p>
+              <p className="mt-1">Tel: 0912330434, 0912503935</p>
+            </div>
           </div>
 
           {/* Navigation */}
@@ -42,7 +54,7 @@ export function Footer() {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-background/70 hover:text-background transition-colors"
+                    className="text-white/70 hover:text-white transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -61,7 +73,7 @@ export function Footer() {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-background/70 hover:text-background transition-colors"
+                    className="text-white/70 hover:text-white transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -72,13 +84,13 @@ export function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="mt-12 pt-8 border-t border-background/10">
+        <div className="mt-12 pt-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-background/60">
+            <p className="text-sm text-white/60">
               {new Date().getFullYear()} El Mueiz Factory. All rights reserved.
             </p>
-            <p className="text-sm text-background/60">
-              <Link href="https://www.elmueizfactory.com" className="hover:text-background transition-colors">
+            <p className="text-sm text-white/60">
+              <Link href="https://www.elmueizfactory.com" className="hover:text-white transition-colors">
                 www.elmueizfactory.com
               </Link>
             </p>

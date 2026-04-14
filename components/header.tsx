@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
@@ -18,12 +19,16 @@ export function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3 lg:px-8">
         <div className="flex lg:flex-1">
-          <Link href="/" className="-m-1.5 p-1.5">
-            <span className="text-xl font-bold tracking-tight text-foreground">
-              El Mueiz<span className="text-primary">Factory</span>
-            </span>
+          <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-3">
+            <Image
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Profile-2CdfracH3QZMn56l7DE39HSeGZ4qFz.jpg"
+              alt="El Mueiz Factory Logo"
+              width={60}
+              height={60}
+              className="h-12 w-auto"
+            />
           </Link>
         </div>
         
@@ -64,9 +69,13 @@ export function Header() {
           <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-background px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-border">
             <div className="flex items-center justify-between">
               <Link href="/" className="-m-1.5 p-1.5" onClick={() => setMobileMenuOpen(false)}>
-                <span className="text-xl font-bold tracking-tight text-foreground">
-                  El Mueiz<span className="text-primary">Factory</span>
-                </span>
+                <Image
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Profile-2CdfracH3QZMn56l7DE39HSeGZ4qFz.jpg"
+                  alt="El Mueiz Factory Logo"
+                  width={50}
+                  height={50}
+                  className="h-10 w-auto"
+                />
               </Link>
               <button
                 type="button"
