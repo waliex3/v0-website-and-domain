@@ -66,8 +66,8 @@ export function ContactSection() {
                 </div>
                 <div>
                   <h3 className="font-medium text-foreground">Email Us</h3>
-                  <a href="mailto:info@elmueizfactory.com" className="text-muted-foreground hover:text-primary transition-colors">
-                    info@elmueizfactory.com
+                  <a href="mailto:office@elmueizfactory.com" className="text-muted-foreground hover:text-primary transition-colors">
+                    office@elmueizfactory.com
                   </a>
                 </div>
               </div>
