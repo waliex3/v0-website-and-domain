@@ -23,9 +23,9 @@ export function Header() {
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-3">
             <Image
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Profile-2CdfracH3QZMn56l7DE39HSeGZ4qFz.jpg"
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202026-04-14%20at%2010.11.24%E2%80%AFPM-Pjm1nKopl37MviTLX4iZEMLghn4iWW.png"
               alt="El Mueiz Factory Logo"
-              width={60}
+              width={140}
               height={60}
               className="h-12 w-auto"
             />
@@ -70,9 +70,9 @@ export function Header() {
             <div className="flex items-center justify-between">
               <Link href="/" className="-m-1.5 p-1.5" onClick={() => setMobileMenuOpen(false)}>
                 <Image
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Profile-2CdfracH3QZMn56l7DE39HSeGZ4qFz.jpg"
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202026-04-14%20at%2010.11.24%E2%80%AFPM-Pjm1nKopl37MviTLX4iZEMLghn4iWW.png"
                   alt="El Mueiz Factory Logo"
-                  width={50}
+                  width={120}
                   height={50}
                   className="h-10 w-auto"
                 />
