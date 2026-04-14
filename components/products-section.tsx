@@ -86,6 +86,36 @@ export function ProductsSection() {
               Polypropylene
             </span>
           </div>
+
+          {/* Featured All Colors Showcase */}
+          <div className="mb-10 grid md:grid-cols-2 gap-6">
+            <div className="group relative aspect-[4/5] rounded-xl overflow-hidden shadow-lg">
+              <Image
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-04-14%20at%2022.29.26%20%283%29-EvU1qmZvcOVo2HRGC6lcRofK8WNFAx.jpeg"
+                alt="PP Rope - All Colors Available"
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-transparent to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+                <p className="text-lg font-bold text-white">Available in Multiple Colors</p>
+                <p className="text-sm text-white/80">Orange, Yellow, Blue, Green, Neon Yellow, Pink & more</p>
+              </div>
+            </div>
+            <div className="group relative aspect-[4/5] rounded-xl overflow-hidden shadow-lg">
+              <Image
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-04-14%20at%2022.29.26%20%282%29-VG4PK6QdwRF3OIiNQYHmAZ8hHX1HZq.jpeg"
+                alt="PP Rope - Color Range"
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-transparent to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+                <p className="text-lg font-bold text-white">BAYAN Quality Ropes</p>
+                <p className="text-sm text-white/80">High tensile strength for all applications</p>
+              </div>
+            </div>
+          </div>
           
           <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
             {/* Rope Images Grid */}
