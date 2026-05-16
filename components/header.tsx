@@ -1,10 +1,11 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import gsap from "gsap"
 
 const navigation = [
   { name: "Home", href: "#home" },
@@ -16,11 +17,60 @@ const navigation = [
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const headerRef = useRef<HTMLElement>(null)
+  const logoRef = useRef<HTMLDivElement>(null)
+  const navLinksRef = useRef<HTMLDivElement>(null)
+  const ctaRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } })
+
+      // Header slides down from top
+      tl.fromTo(
+        headerRef.current,
+        { y: -80, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7 }
+      )
+
+      // Logo fades in
+      tl.fromTo(
+        logoRef.current,
+        { x: -20, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.5 },
+        "-=0.4"
+      )
+
+      // Nav links stagger in
+      const links = navLinksRef.current?.querySelectorAll("a")
+      if (links) {
+        tl.fromTo(
+          links,
+          { y: -10, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.4, stagger: 0.08 },
+          "-=0.3"
+        )
+      }
+
+      // CTA button
+      tl.fromTo(
+        ctaRef.current,
+        { x: 20, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.4 },
+        "-=0.3"
+      )
+    })
+
+    return () => ctx.revert()
+  }, [])
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
+    <header
+      ref={headerRef}
+      className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border"
+    >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3 lg:px-8">
-        <div className="flex lg:flex-1">
+        <div ref={logoRef} className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-3">
             <Image
               src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202026-04-14%20at%2010.11.24%E2%80%AFPM-Pjm1nKopl37MviTLX4iZEMLghn4iWW.png"
@@ -31,7 +81,7 @@ export function Header() {
             />
           </Link>
         </div>
-        
+
         <div className="flex lg:hidden">
           <button
             type="button"
@@ -42,8 +92,8 @@ export function Header() {
             <Menu className="h-6 w-6" aria-hidden="true" />
           </button>
         </div>
-        
-        <div className="hidden lg:flex lg:gap-x-10">
+
+        <div ref={navLinksRef} className="hidden lg:flex lg:gap-x-10">
           {navigation.map((item) => (
             <Link
               key={item.name}
@@ -54,8 +104,8 @@ export function Header() {
             </Link>
           ))}
         </div>
-        
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+
+        <div ref={ctaRef} className="hidden lg:flex lg:flex-1 lg:justify-end">
           <Button asChild>
             <Link href="#contact">Get Quote</Link>
           </Button>

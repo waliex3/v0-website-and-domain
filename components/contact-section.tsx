@@ -1,10 +1,14 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Mail, MapPin, Phone, Send } from "lucide-react"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+gsap.registerPlugin(ScrollTrigger)
 
 const phoneNumbers = [
   "0912330434",
@@ -24,18 +28,76 @@ export function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
+  const sectionRef = useRef<HTMLElement>(null)
+  const infoRef = useRef<HTMLDivElement>(null)
+  const formRef = useRef<HTMLDivElement>(null)
+  const contactItemsRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Info side slides in from left
+      gsap.fromTo(
+        infoRef.current,
+        { x: -50, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 0.9,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: infoRef.current,
+            start: "top 80%",
+          },
+        }
+      )
+
+      // Contact items stagger
+      const items = contactItemsRef.current?.querySelectorAll(".contact-item")
+      if (items) {
+        gsap.fromTo(
+          items,
+          { y: 25, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.5,
+            stagger: 0.15,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: contactItemsRef.current,
+              start: "top 80%",
+            },
+          }
+        )
+      }
+
+      // Form slides in from right
+      gsap.fromTo(
+        formRef.current,
+        { x: 50, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 0.9,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: formRef.current,
+            start: "top 80%",
+          },
+        }
+      )
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
-    // Simulate form submission
     await new Promise(resolve => setTimeout(resolve, 1000))
-    
     setIsSubmitting(false)
     setIsSubmitted(true)
     setFormState({ name: "", email: "", company: "", phone: "", message: "" })
-    
-    // Reset success message after 5 seconds
     setTimeout(() => setIsSubmitted(false), 5000)
   }
 
@@ -44,11 +106,11 @@ export function ContactSection() {
   }
 
   return (
-    <section id="contact" className="py-24 lg:py-32 bg-muted">
+    <section ref={sectionRef} id="contact" className="py-24 lg:py-32 bg-muted">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
           {/* Contact Info */}
-          <div>
+          <div ref={infoRef}>
             <p className="text-sm font-medium uppercase tracking-widest text-primary mb-3">
               Get In Touch
             </p>
@@ -59,8 +121,8 @@ export function ContactSection() {
               Contact us today for product inquiries, quotes, or to discuss your specific requirements. Our team is ready to assist you.
             </p>
 
-            <div className="space-y-6">
-              <div className="flex items-start gap-4">
+            <div ref={contactItemsRef} className="space-y-6">
+              <div className="contact-item flex items-start gap-4">
                 <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                   <Mail className="h-5 w-5 text-primary" />
                 </div>
@@ -72,7 +134,7 @@ export function ContactSection() {
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
+              <div className="contact-item flex items-start gap-4">
                 <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                   <Phone className="h-5 w-5 text-primary" />
                 </div>
@@ -80,9 +142,9 @@ export function ContactSection() {
                   <h3 className="font-medium text-foreground mb-2">Call Us</h3>
                   <div className="grid grid-cols-2 gap-2">
                     {phoneNumbers.map((phone) => (
-                      <a 
+                      <a
                         key={phone}
-                        href={`tel:+249${phone.slice(1)}`} 
+                        href={`tel:+249${phone.slice(1)}`}
                         className="text-muted-foreground hover:text-primary transition-colors text-sm"
                       >
                         {phone}
@@ -92,7 +154,7 @@ export function ContactSection() {
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
+              <div className="contact-item flex items-start gap-4">
                 <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                   <MapPin className="h-5 w-5 text-primary" />
                 </div>
@@ -111,7 +173,7 @@ export function ContactSection() {
           </div>
 
           {/* Contact Form */}
-          <div className="bg-card rounded-lg border border-border p-6 lg:p-8">
+          <div ref={formRef} className="bg-card rounded-lg border border-border p-6 lg:p-8">
             {isSubmitted ? (
               <div className="h-full flex flex-col items-center justify-center text-center py-12">
                 <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
@@ -131,28 +193,13 @@ export function ContactSection() {
                     <label htmlFor="name" className="text-sm font-medium text-card-foreground">
                       Your Name
                     </label>
-                    <Input
-                      id="name"
-                      name="name"
-                      value={formState.name}
-                      onChange={handleChange}
-                      placeholder="John Doe"
-                      required
-                    />
+                    <Input id="name" name="name" value={formState.name} onChange={handleChange} placeholder="John Doe" required />
                   </div>
                   <div className="space-y-2">
                     <label htmlFor="email" className="text-sm font-medium text-card-foreground">
                       Email Address
                     </label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      value={formState.email}
-                      onChange={handleChange}
-                      placeholder="john@example.com"
-                      required
-                    />
+                    <Input id="email" name="email" type="email" value={formState.email} onChange={handleChange} placeholder="john@example.com" required />
                   </div>
                 </div>
 
@@ -161,26 +208,13 @@ export function ContactSection() {
                     <label htmlFor="company" className="text-sm font-medium text-card-foreground">
                       Company Name
                     </label>
-                    <Input
-                      id="company"
-                      name="company"
-                      value={formState.company}
-                      onChange={handleChange}
-                      placeholder="Your Company"
-                    />
+                    <Input id="company" name="company" value={formState.company} onChange={handleChange} placeholder="Your Company" />
                   </div>
                   <div className="space-y-2">
                     <label htmlFor="phone" className="text-sm font-medium text-card-foreground">
                       Phone Number
                     </label>
-                    <Input
-                      id="phone"
-                      name="phone"
-                      type="tel"
-                      value={formState.phone}
-                      onChange={handleChange}
-                      placeholder="+249 912 330 434"
-                    />
+                    <Input id="phone" name="phone" type="tel" value={formState.phone} onChange={handleChange} placeholder="+249 912 330 434" />
                   </div>
                 </div>
 
@@ -188,15 +222,7 @@ export function ContactSection() {
                   <label htmlFor="message" className="text-sm font-medium text-card-foreground">
                     Your Message
                   </label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    value={formState.message}
-                    onChange={handleChange}
-                    placeholder="Tell us about your requirements..."
-                    rows={5}
-                    required
-                  />
+                  <Textarea id="message" name="message" value={formState.message} onChange={handleChange} placeholder="Tell us about your requirements..." rows={5} required />
                 </div>
 
                 <Button type="submit" className="w-full" disabled={isSubmitting}>

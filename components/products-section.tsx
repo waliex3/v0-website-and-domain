@@ -1,7 +1,14 @@
+"use client"
+
+import { useEffect, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Check } from "lucide-react"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+gsap.registerPlugin(ScrollTrigger)
 
 const ropeProducts = [
   {
@@ -14,7 +21,7 @@ const ropeProducts = [
   },
   {
     color: "Green",
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-04-14%20at%2022.29.27-HeMIeavUIQbxbVBOtGOAzbEgS4g64N.jpeg",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-04-14%20at%2022.29.27-HeMIeavUIQbxbVBOtGAzbEgS4g64N.jpeg",
   },
   {
     color: "Neon Yellow",
@@ -62,11 +69,154 @@ const shoeFeatures = [
 ]
 
 export function ProductsSection() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const headerRef = useRef<HTMLDivElement>(null)
+  const ropeImagesRef = useRef<HTMLDivElement>(null)
+  const ropeInfoRef = useRef<HTMLDivElement>(null)
+  const shoeImagesRef = useRef<HTMLDivElement>(null)
+  const shoeInfoRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Section header reveal
+      gsap.fromTo(
+        headerRef.current,
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: headerRef.current,
+            start: "top 85%",
+          },
+        }
+      )
+
+      // Rope images stagger in
+      const ropeImages = ropeImagesRef.current?.querySelectorAll(".product-card")
+      if (ropeImages) {
+        gsap.fromTo(
+          ropeImages,
+          { y: 60, opacity: 0, scale: 0.92 },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 0.7,
+            stagger: 0.12,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: ropeImagesRef.current,
+              start: "top 80%",
+            },
+          }
+        )
+      }
+
+      // Rope info slides in from right
+      gsap.fromTo(
+        ropeInfoRef.current,
+        { x: 50, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ropeInfoRef.current,
+            start: "top 80%",
+          },
+        }
+      )
+
+      // Feature list items stagger
+      const ropeFeatureItems = ropeInfoRef.current?.querySelectorAll(".feature-item")
+      if (ropeFeatureItems) {
+        gsap.fromTo(
+          ropeFeatureItems,
+          { x: 20, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 0.5,
+            stagger: 0.08,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: ropeInfoRef.current,
+              start: "top 75%",
+            },
+          }
+        )
+      }
+
+      // Shoe info slides in from left
+      gsap.fromTo(
+        shoeInfoRef.current,
+        { x: -50, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: shoeInfoRef.current,
+            start: "top 80%",
+          },
+        }
+      )
+
+      // Shoe images stagger in
+      const shoeImages = shoeImagesRef.current?.querySelectorAll(".product-card")
+      if (shoeImages) {
+        gsap.fromTo(
+          shoeImages,
+          { y: 60, opacity: 0, scale: 0.92 },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 0.7,
+            stagger: 0.12,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: shoeImagesRef.current,
+              start: "top 80%",
+            },
+          }
+        )
+      }
+
+      // Shoe feature items stagger
+      const shoeFeatureItems = shoeInfoRef.current?.querySelectorAll(".feature-item")
+      if (shoeFeatureItems) {
+        gsap.fromTo(
+          shoeFeatureItems,
+          { x: -20, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 0.5,
+            stagger: 0.08,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: shoeInfoRef.current,
+              start: "top 75%",
+            },
+          }
+        )
+      }
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <section id="products" className="py-24 lg:py-32 bg-background">
+    <section ref={sectionRef} id="products" className="py-24 lg:py-32 bg-background">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div ref={headerRef} className="text-center mb-16">
           <p className="text-sm font-medium uppercase tracking-widest text-primary mb-3">
             Our Products
           </p>
@@ -88,10 +238,9 @@ export function ProductsSection() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
-            {/* Rope Images Grid */}
-            <div className="grid grid-cols-2 gap-4">
+            <div ref={ropeImagesRef} className="grid grid-cols-2 gap-4">
               {ropeProducts.map((rope) => (
-                <div key={rope.color} className="group relative aspect-square rounded-lg overflow-hidden bg-muted">
+                <div key={rope.color} className="product-card group relative aspect-square rounded-lg overflow-hidden bg-muted">
                   <Image
                     src={rope.image}
                     alt={`${rope.color} PP Rope`}
@@ -104,15 +253,14 @@ export function ProductsSection() {
                 </div>
               ))}
             </div>
-            
-            {/* Rope Info */}
-            <div className="flex flex-col justify-center">
+
+            <div ref={ropeInfoRef} className="flex flex-col justify-center">
               <p className="text-muted-foreground leading-relaxed mb-6">
                 High-strength polypropylene ropes designed for industrial, agricultural, and marine applications. Our BAYAN brand ropes are available in various colors, sizes, and specifications to meet your specific needs.
               </p>
               <ul className="space-y-3 mb-8">
                 {ropeFeatures.map((feature) => (
-                  <li key={feature} className="flex items-center gap-3 text-foreground">
+                  <li key={feature} className="feature-item flex items-center gap-3 text-foreground">
                     <Check className="h-5 w-5 text-primary flex-shrink-0" />
                     {feature}
                   </li>
@@ -136,16 +284,15 @@ export function ProductsSection() {
               Footwear
             </span>
           </div>
-          
+
           <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
-            {/* Shoe Info */}
-            <div className="flex flex-col justify-center order-2 md:order-1">
+            <div ref={shoeInfoRef} className="flex flex-col justify-center order-2 md:order-1">
               <p className="text-muted-foreground leading-relaxed mb-6">
                 Durable PVC shoes perfect for everyday wear, industrial use, and various working conditions. Our footwear collection includes multiple styles - from classic loafers to modern sneakers - all made with comfort and durability in mind.
               </p>
               <ul className="space-y-3 mb-8">
                 {shoeFeatures.map((feature) => (
-                  <li key={feature} className="flex items-center gap-3 text-foreground">
+                  <li key={feature} className="feature-item flex items-center gap-3 text-foreground">
                     <Check className="h-5 w-5 text-accent flex-shrink-0" />
                     {feature}
                   </li>
@@ -158,12 +305,11 @@ export function ProductsSection() {
                 </Link>
               </Button>
             </div>
-            
-            {/* Shoe Images Grid */}
-            <div className="order-1 md:order-2">
+
+            <div ref={shoeImagesRef} className="order-1 md:order-2">
               <div className="grid grid-cols-2 gap-4">
                 {shoeProducts.slice(0, 4).map((shoe) => (
-                  <div key={shoe.name} className="group relative aspect-square rounded-lg overflow-hidden bg-white">
+                  <div key={shoe.name} className="product-card group relative aspect-square rounded-lg overflow-hidden bg-white">
                     <Image
                       src={shoe.image}
                       alt={shoe.name}
@@ -176,9 +322,8 @@ export function ProductsSection() {
                   </div>
                 ))}
               </div>
-              {/* Fifth shoe centered below */}
               <div className="mt-4 flex justify-center">
-                <div className="group relative aspect-square w-1/2 rounded-lg overflow-hidden bg-white">
+                <div className="product-card group relative aspect-square w-1/2 rounded-lg overflow-hidden bg-white">
                   <Image
                     src={shoeProducts[4].image}
                     alt={shoeProducts[4].name}
