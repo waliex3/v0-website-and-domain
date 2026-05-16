@@ -17,6 +17,10 @@ export const metadata: Metadata = {
   title: 'El Mueiz Factory | PP Rope & PVC Shoes Manufacturer',
   description: 'Leading manufacturer of high-quality PP rope and PVC shoes. Trusted by businesses worldwide for durable, reliable products.',
   keywords: ['PP rope', 'PVC shoes', 'manufacturing', 'factory', 'industrial rope', 'footwear'],
+  icons: {
+    icon: "/favicon.jpg",
+    apple: "/favicon.jpg",
+  },
   openGraph: {
     title: 'El Mueiz Factory | PP Rope & PVC Shoes Manufacturer',
     description: 'Leading manufacturer of high-quality PP rope and PVC shoes.',
