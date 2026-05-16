@@ -21,7 +21,7 @@ const ropeProducts = [
   },
   {
     color: "Green",
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-04-14%20at%2022.29.27-HeMIeavUIQbxbVBOtGAzbEgS4g64N.jpeg",
+    image: "/green-rope.jpg",
   },
   {
     color: "Neon Yellow",
