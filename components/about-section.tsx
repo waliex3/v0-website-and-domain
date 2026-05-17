@@ -126,7 +126,7 @@ export function AboutSection() {
               Leading Plastics Manufacturer in Sudan
             </h2>
             <p className="text-lg text-muted-foreground mb-2" dir="rtl">
-              مصنع المعز للبلاستيك - رائد صناعة البلاستيك منذ عام 1989
+              مصنع المعز للبلاستيك - رواد صناعة البلاستيك منذ عام 1989
             </p>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>

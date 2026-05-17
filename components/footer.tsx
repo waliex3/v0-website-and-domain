@@ -86,7 +86,7 @@ export function Footer() {
               Leading manufacturer of high-quality PP rope (BAYAN brand) and PVC shoes, serving customers across Sudan since 1989.
             </p>
             <p className="mt-2 text-white/60 text-sm" dir="rtl">
-              مصنع المعز للبلاستيك - رائد صناعة البلاستيك منذ عام 1989
+              مصنع المعز للبلاستيك - رواد صناعة البلاستيك منذ عام 1989
             </p>
             <div className="mt-4 text-sm text-white/60">
               <p>Atbara Industrial Area, Sudan</p>

@@ -140,7 +140,7 @@ export function HeroSection() {
             </p>
 
             <p ref={arabicRef} className="mt-2 text-base text-white/60" dir="rtl">
-              مصنع المعز للبلاستيك - رائد صناعة البلاستيك منذ عام 1989
+              مصنع المعز للبلاستيك - رواد صناعة البلاستيك منذ عام 1989
             </p>
 
             <div
