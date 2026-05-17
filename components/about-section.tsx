@@ -110,7 +110,7 @@ export function AboutSection() {
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-04-14%20at%2022.29.27%20%282%29-Ev4Y8GyNklFTwRU48114nxVOvNJTO1.jpeg"
                 alt="El Mueiz Factory BAYAN rope products"
                 fill
-                className="object-cover"
+                className="object-contain"
               />
             </div>
             <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-primary/10 rounded-lg -z-10" />
