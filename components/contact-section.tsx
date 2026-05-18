@@ -108,7 +108,7 @@ export function ContactSection() {
       body: JSON.stringify(formState)
     })
     if (dbRes.ok) {
-      fetch("https://waliex3.app.n8n.cloud/webhook/elmueiz-contact", {
+      fetch("/api/contact", {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
