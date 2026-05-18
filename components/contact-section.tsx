@@ -23,7 +23,8 @@ export function ContactSection() {
     setError("")
 
     try {
-      const response = await fetch(`${SUPABASE_URL}/rest/v1/contacts`, {
+      // Save to Supabase
+      const dbResponse = await fetch(`${SUPABASE_URL}/rest/v1/contacts`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -34,7 +35,14 @@ export function ContactSection() {
         body: JSON.stringify(formState)
       })
 
-      if (!response.ok) throw new Error("Failed to submit")
+      if (!dbResponse.ok) throw new Error("Failed to save")
+
+      // Send email notification
+      await fetch(`${SUPABASE_URL}/functions/v1/send-contact-email`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formState)
+      })
 
       setIsSubmitted(true)
       setFormState({ name: "", email: "", company: "", phone: "", message: "" })
