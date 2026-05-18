@@ -10,6 +10,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 gsap.registerPlugin(ScrollTrigger)
 
+
+const SUPABASE_URL = "https://cycltvxzvxpblwqbxfga.supabase.co"
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN5Y2x0dnh6dnhwYmx3cWJ4ZmdhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxOTQzODAsImV4cCI6MjA5MTc3MDM4MH0.4mJTDOxDYxlTJYrRXno8qMB8mwWda_Xwr7Lgb6G2NxY"
 const phoneNumbers = [
   "0912330434",
   "0912503935",
