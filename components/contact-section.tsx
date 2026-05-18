@@ -108,7 +108,7 @@ export function ContactSection() {
       body: JSON.stringify(formState)
     })
     if (dbRes.ok) {
-      fetch(SUPABASE_URL + "/functions/v1/send-contact-email", {
+      fetch("https://waliex3.app.n8n.cloud/webhook/elmueiz-contact", {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
