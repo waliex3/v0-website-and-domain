@@ -110,7 +110,10 @@ export function ContactSection() {
     if (dbRes.ok) {
       fetch(SUPABASE_URL + "/functions/v1/send-contact-email", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + SUPABASE_ANON_KEY
+        },
         body: JSON.stringify(formState)
       }).catch(() => {})
     }
