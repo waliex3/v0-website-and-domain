@@ -97,7 +97,23 @@ export function ContactSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    const dbRes = await fetch(SUPABASE_URL + "/rest/v1/contacts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": SUPABASE_ANON_KEY,
+        "Authorization": "Bearer " + SUPABASE_ANON_KEY,
+        "Prefer": "return=minimal"
+      },
+      body: JSON.stringify(formState)
+    })
+    if (dbRes.ok) {
+      fetch(SUPABASE_URL + "/functions/v1/send-contact-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formState)
+      }).catch(() => {})
+    }
     setIsSubmitting(false)
     setIsSubmitted(true)
     setFormState({ name: "", email: "", company: "", phone: "", message: "" })
