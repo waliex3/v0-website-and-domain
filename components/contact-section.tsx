@@ -37,12 +37,67 @@ export function ContactSection() {
 
       if (!dbResponse.ok) throw new Error("Failed to save")
 
-      // Send email notification
-      await fetch(`${SUPABASE_URL}/functions/v1/send-contact-email`, {
+      // Send email notification — don't fail if this errors
+      try {
+        await fetch(`${SUPABASE_URL}/functions/v1/send-contact-email`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formState)
+        })
+      } catch {
+        // Email failed silently — data is alread
+cd ~/Downloads/v0-website-and-domain
+sed -i '' 's/if (!dbResponse.ok) throw new Error("Failed to save")/if (!dbResponse.ok) throw new Error("Failed to save")/' components/contact-section.tsx
+cat > ~/Downloads/v0-website-and-domain/components/contact-section.tsx << 'ENDOFFILE'
+"use client"
+
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Mail, MapPin, Phone, Send } from "lucide-react"
+
+const SUPABASE_URL = "https://cycltvxzvxpblwqbxfga.supabase.co"
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN5Y2x0dnh6dnhwYmx3cWJ4ZmdhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxOTQzODAsImV4cCI6MjA5MTc3MDM4MH0.4mJTDOxDYxlTJYrRXno8qMB8mwWda_Xwr7Lgb6G2NxY"
+
+const phoneNumbers = ["0912330434","0912503935","0123767367","0123083564"]
+
+export function ContactSection() {
+  const [formState, setFormState] = useState({ name: "", email: "", company: "", phone: "", message: "" })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [error, setError] = useState("")
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setError("")
+
+    try {
+      // Save to Supabase
+      const dbResponse = await fetch(`${SUPABASE_URL}/rest/v1/contacts`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": SUPABASE_ANON_KEY,
+          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+          "Prefer": "return=minimal"
+        },
         body: JSON.stringify(formState)
       })
+
+      if (!dbResponse.ok) throw new Error("Failed to save")
+
+      // Send email notification — don't fail if this errors
+      try {
+        await fetch(`${SUPABASE_URL}/functions/v1/send-contact-email`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formState)
+        })
+      } catch {
+        // Email failed silently — data is already saved
+      }
 
       setIsSubmitted(true)
       setFormState({ name: "", email: "", company: "", phone: "", message: "" })
@@ -101,7 +156,6 @@ export function ContactSection() {
               </div>
             </div>
           </div>
-
           <div className="bg-card rounded-lg border border-border p-6 lg:p-8">
             {isSubmitted ? (
               <div className="h-full flex flex-col items-center justify-center text-center py-12">
