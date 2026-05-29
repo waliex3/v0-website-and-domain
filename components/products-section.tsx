@@ -15,19 +15,19 @@ gsap.registerPlugin(ScrollTrigger)
 const ropeProducts = [
   {
     color: "Blue",
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-04-14%20at%2022.29.26%20%281%29-WDgHelaP6rFexHea2kUkHZH9gKPNah.jpeg",
+    image: "/ropes/blue-rope-nobg.jpg",
   },
   {
     color: "Yellow",
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-04-14%20at%2022.29.26-fYnr8xIVGNrLCTGc8i5zlcCc9Rrl8F.jpeg",
+    image: "/ropes/yellow-rope-nobg.jpg",
   },
   {
     color: "Green",
-    image: "/green-rope.jpg",
+    image: "/ropes/green-rope-nobg.jpg",
   },
   {
     color: "Neon Yellow",
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-04-14%20at%2022.29.27%20%281%29-bOAaPijFuUBZewZQrZmMWoTnfHHJji.jpeg",
+    image: "/ropes/neon-yellow-rope-nobg.jpg",
   },
 ]
 
@@ -153,7 +153,7 @@ export function ProductsSection() {
           <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
             <div ref={ropeImagesRef} className="grid grid-cols-2 gap-4">
               {ropeProducts.map((rope) => (
-                <div key={rope.color} className="product-card group relative aspect-square rounded-lg overflow-hidden bg-muted">
+                <div key={rope.color} className="product-card group relative aspect-square rounded-lg overflow-hidden bg-white">
                   <Image
                     src={rope.image}
                     alt={`${t.ropeColors[rope.color as keyof typeof t.ropeColors]} PP Rope`}
