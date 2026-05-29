@@ -123,3 +123,10 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Arabic font applied when RTL direction is active */
+[dir="rtl"] body,
+[dir="rtl"] {
+  font-family: var(--font-cairo), sans-serif;
+  letter-spacing: 0;
+}

@@ -4,14 +4,16 @@ import { useEffect, useRef } from "react"
 import Image from "next/image"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { useLanguage } from "@/lib/language-context"
+import { translations } from "@/lib/translations"
 
 gsap.registerPlugin(ScrollTrigger)
 
-const stats = [
-  { value: 35, suffix: "+", label: "Years Experience" },
-  { value: 1989, suffix: "", label: "Established" },
-  { value: 2, suffix: "", label: "Product Lines" },
-  { value: 100, suffix: "%", label: "Quality Commitment" },
+const statsData = [
+  { value: 35, suffix: "+" },
+  { value: 1989, suffix: "" },
+  { value: 2, suffix: "" },
+  { value: 100, suffix: "%" },
 ]
 
 export function AboutSection() {
@@ -21,45 +23,33 @@ export function AboutSection() {
   const statsRef = useRef<HTMLDivElement>(null)
   const statNumbersRef = useRef<(HTMLSpanElement | null)[]>([])
 
+  const { lang, isArabic } = useLanguage()
+  const t = translations[lang].about
+
+  const statLabels = [
+    t.stats.yearsExp,
+    t.stats.established,
+    t.stats.productLines,
+    t.stats.quality,
+  ]
+
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Image slides in from left
       gsap.fromTo(
         imageRef.current,
         { x: -60, opacity: 0 },
-        {
-          x: 0,
-          opacity: 1,
-          duration: 0.9,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: imageRef.current,
-            start: "top 80%",
-          },
-        }
+        { x: 0, opacity: 1, duration: 0.9, ease: "power3.out", scrollTrigger: { trigger: imageRef.current, start: "top 80%" } }
       )
 
-      // Content fades up
       gsap.fromTo(
         contentRef.current,
         { y: 50, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.9,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: contentRef.current,
-            start: "top 80%",
-          },
-        }
+        { y: 0, opacity: 1, duration: 0.9, ease: "power3.out", scrollTrigger: { trigger: contentRef.current, start: "top 80%" } }
       )
 
-      // Counter animations for stats
-      stats.forEach((stat, i) => {
+      statsData.forEach((stat, i) => {
         const el = statNumbersRef.current[i]
         if (!el) return
-
         const obj = { val: 0 }
         gsap.fromTo(
           obj,
@@ -68,31 +58,16 @@ export function AboutSection() {
             val: stat.value,
             duration: 1.8,
             ease: "power2.out",
-            scrollTrigger: {
-              trigger: statsRef.current,
-              start: "top 85%",
-            },
-            onUpdate: () => {
-              el.textContent = Math.round(obj.val) + stat.suffix
-            },
+            scrollTrigger: { trigger: statsRef.current, start: "top 85%" },
+            onUpdate: () => { el.textContent = Math.round(obj.val) + stat.suffix },
           }
         )
       })
 
-      // Stats container fade in
       gsap.fromTo(
         statsRef.current,
         { y: 30, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.7,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: statsRef.current,
-            start: "top 85%",
-          },
-        }
+        { y: 0, opacity: 1, duration: 0.7, ease: "power3.out", scrollTrigger: { trigger: statsRef.current, start: "top 85%" } }
       )
     }, sectionRef)
 
@@ -120,24 +95,21 @@ export function AboutSection() {
           {/* Content */}
           <div ref={contentRef}>
             <p className="text-sm font-medium uppercase tracking-widest text-primary mb-3">
-              About Our Factory
+              {t.sectionLabel}
             </p>
             <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl mb-6 text-balance">
-              Leading Plastics Manufacturer in Sudan
+              {t.sectionTitle}
             </h2>
-            <p className="text-lg text-muted-foreground mb-2" dir="rtl">
-              مصنع المعز للبلاستيك - رواد صناعة البلاستيك منذ عام 1989
-            </p>
+            {/* Show Arabic subtitle only in English mode */}
+            {!isArabic && (
+              <p className="text-lg text-muted-foreground mb-2" dir="rtl">
+                {t.arabicSubtitle}
+              </p>
+            )}
             <div className="space-y-4 text-muted-foreground leading-relaxed">
-              <p>
-                Since 1989, El Mueiz Factory has been a pioneer in plastics manufacturing in Sudan. Based in Atbara Industrial Area, we specialize in producing high-quality PP ropes under our BAYAN brand and durable PVC footwear.
-              </p>
-              <p>
-                Our factory combines traditional craftsmanship with modern manufacturing techniques to deliver products that meet the highest standards of quality and durability.
-              </p>
-              <p>
-                We take pride in being a trusted supplier to businesses and retailers across Sudan, offering competitive prices and reliable delivery.
-              </p>
+              <p>{t.p1}</p>
+              <p>{t.p2}</p>
+              <p>{t.p3}</p>
             </div>
 
             {/* Stats */}
@@ -145,16 +117,14 @@ export function AboutSection() {
               ref={statsRef}
               className="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-10 pt-10 border-t border-border"
             >
-              {stats.map((stat, i) => (
-                <div key={stat.label} className="text-center sm:text-left">
+              {statsData.map((stat, i) => (
+                <div key={statLabels[i]} className="text-center sm:text-left">
                   <div className="text-3xl font-bold text-foreground">
-                    <span
-                      ref={(el) => { statNumbersRef.current[i] = el }}
-                    >
+                    <span ref={(el) => { statNumbersRef.current[i] = el }}>
                       0{stat.suffix}
                     </span>
                   </div>
-                  <div className="text-sm text-muted-foreground mt-1">{stat.label}</div>
+                  <div className="text-sm text-muted-foreground mt-1">{statLabels[i]}</div>
                 </div>
               ))}
             </div>

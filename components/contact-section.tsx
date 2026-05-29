@@ -7,9 +7,10 @@ import { Textarea } from "@/components/ui/textarea"
 import { Mail, MapPin, Phone, Send } from "lucide-react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { useLanguage } from "@/lib/language-context"
+import { translations } from "@/lib/translations"
 
 gsap.registerPlugin(ScrollTrigger)
-
 
 const SUPABASE_URL = "https://cycltvxzvxpblwqbxfga.supabase.co"
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN5Y2x0dnh6dnhwYmx3cWJ4ZmdhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxOTQzODAsImV4cCI6MjA5MTc3MDM4MH0.4mJTDOxDYxlTJYrRXno8qMB8mwWda_Xwr7Lgb6G2NxY"
@@ -22,11 +23,7 @@ const phoneNumbers = [
 
 export function ContactSection() {
   const [formState, setFormState] = useState({
-    name: "",
-    email: "",
-    company: "",
-    phone: "",
-    message: "",
+    name: "", email: "", company: "", phone: "", message: "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -36,58 +33,30 @@ export function ContactSection() {
   const formRef = useRef<HTMLDivElement>(null)
   const contactItemsRef = useRef<HTMLDivElement>(null)
 
+  const { lang } = useLanguage()
+  const t = translations[lang].contact
+
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Info side slides in from left
       gsap.fromTo(
         infoRef.current,
         { x: -50, opacity: 0 },
-        {
-          x: 0,
-          opacity: 1,
-          duration: 0.9,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: infoRef.current,
-            start: "top 80%",
-          },
-        }
+        { x: 0, opacity: 1, duration: 0.9, ease: "power3.out", scrollTrigger: { trigger: infoRef.current, start: "top 80%" } }
       )
 
-      // Contact items stagger
       const items = contactItemsRef.current?.querySelectorAll(".contact-item")
       if (items) {
         gsap.fromTo(
           items,
           { y: 25, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.5,
-            stagger: 0.15,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: contactItemsRef.current,
-              start: "top 80%",
-            },
-          }
+          { y: 0, opacity: 1, duration: 0.5, stagger: 0.15, ease: "power2.out", scrollTrigger: { trigger: contactItemsRef.current, start: "top 80%" } }
         )
       }
 
-      // Form slides in from right
       gsap.fromTo(
         formRef.current,
         { x: 50, opacity: 0 },
-        {
-          x: 0,
-          opacity: 1,
-          duration: 0.9,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: formRef.current,
-            start: "top 80%",
-          },
-        }
+        { x: 0, opacity: 1, duration: 0.9, ease: "power3.out", scrollTrigger: { trigger: formRef.current, start: "top 80%" } }
       )
     }, sectionRef)
 
@@ -110,7 +79,7 @@ export function ContactSection() {
     if (dbRes.ok) {
       fetch("/api/contact", {
         method: "POST",
-        headers: { 
+        headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer " + SUPABASE_ANON_KEY
         },
@@ -134,13 +103,13 @@ export function ContactSection() {
           {/* Contact Info */}
           <div ref={infoRef}>
             <p className="text-sm font-medium uppercase tracking-widest text-primary mb-3">
-              Get In Touch
+              {t.sectionLabel}
             </p>
             <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl mb-6 text-balance">
-              Ready to Start Your Order?
+              {t.sectionTitle}
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed mb-10">
-              Contact us today for product inquiries, quotes, or to discuss your specific requirements. Our team is ready to assist you.
+              {t.sectionDesc}
             </p>
 
             <div ref={contactItemsRef} className="space-y-6">
@@ -149,7 +118,7 @@ export function ContactSection() {
                   <Mail className="h-5 w-5 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-medium text-foreground">Email Us</h3>
+                  <h3 className="font-medium text-foreground">{t.emailLabel}</h3>
                   <a href="mailto:office@elmueizfactory.com" className="text-muted-foreground hover:text-primary transition-colors">
                     office@elmueizfactory.com
                   </a>
@@ -161,7 +130,7 @@ export function ContactSection() {
                   <Phone className="h-5 w-5 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-medium text-foreground mb-2">Call Us</h3>
+                  <h3 className="font-medium text-foreground mb-2">{t.phoneLabel}</h3>
                   <div className="grid grid-cols-2 gap-2">
                     {phoneNumbers.map((phone) => (
                       <a
@@ -181,13 +150,12 @@ export function ContactSection() {
                   <MapPin className="h-5 w-5 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-medium text-foreground">Visit Us</h3>
+                  <h3 className="font-medium text-foreground">{t.addressLabel}</h3>
                   <p className="text-muted-foreground">
-                    Atbara Industrial Area<br />
-                    Sudan
+                    {t.address}<br />{t.country}
                   </p>
                   <p className="text-muted-foreground text-sm mt-1" dir="rtl">
-                    عطبرة المنطقة الصناعية - مصنع المعز للبلاستيك
+                    {t.addressArabic}
                   </p>
                 </div>
               </div>
@@ -202,53 +170,51 @@ export function ContactSection() {
                   <Send className="h-8 w-8 text-primary" />
                 </div>
                 <h3 className="text-xl font-semibold text-card-foreground mb-2">
-                  Message Sent!
+                  {t.successTitle}
                 </h3>
-                <p className="text-muted-foreground">
-                  Thank you for contacting us. We&apos;ll get back to you shortly.
-                </p>
+                <p className="text-muted-foreground">{t.successDesc}</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <label htmlFor="name" className="text-sm font-medium text-card-foreground">
-                      Your Name
+                      {t.form.name}
                     </label>
-                    <Input id="name" name="name" value={formState.name} onChange={handleChange} placeholder="John Doe" required />
+                    <Input id="name" name="name" value={formState.name} onChange={handleChange} placeholder={t.form.namePlaceholder} required />
                   </div>
                   <div className="space-y-2">
                     <label htmlFor="email" className="text-sm font-medium text-card-foreground">
-                      Email Address
+                      {t.form.email}
                     </label>
-                    <Input id="email" name="email" type="email" value={formState.email} onChange={handleChange} placeholder="john@example.com" required />
+                    <Input id="email" name="email" type="email" value={formState.email} onChange={handleChange} placeholder={t.form.emailPlaceholder} required />
                   </div>
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <label htmlFor="company" className="text-sm font-medium text-card-foreground">
-                      Company Name
+                      {t.form.company}
                     </label>
-                    <Input id="company" name="company" value={formState.company} onChange={handleChange} placeholder="Your Company" />
+                    <Input id="company" name="company" value={formState.company} onChange={handleChange} placeholder={t.form.companyPlaceholder} />
                   </div>
                   <div className="space-y-2">
                     <label htmlFor="phone" className="text-sm font-medium text-card-foreground">
-                      Phone Number
+                      {t.form.phone}
                     </label>
-                    <Input id="phone" name="phone" type="tel" value={formState.phone} onChange={handleChange} placeholder="+249 912 330 434" />
+                    <Input id="phone" name="phone" type="tel" value={formState.phone} onChange={handleChange} placeholder={t.form.phonePlaceholder} />
                   </div>
                 </div>
 
                 <div className="space-y-2">
                   <label htmlFor="message" className="text-sm font-medium text-card-foreground">
-                    Your Message
+                    {t.form.message}
                   </label>
-                  <Textarea id="message" name="message" value={formState.message} onChange={handleChange} placeholder="Tell us about your requirements..." rows={5} required />
+                  <Textarea id="message" name="message" value={formState.message} onChange={handleChange} placeholder={t.form.messagePlaceholder} rows={5} required />
                 </div>
 
                 <Button type="submit" className="w-full" disabled={isSubmitting}>
-                  {isSubmitting ? "Sending..." : "Send Message"}
+                  {isSubmitting ? t.form.sending : t.form.send}
                 </Button>
               </form>
             )}
