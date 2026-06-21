@@ -33,24 +33,24 @@ const ropeProducts = [
 
 const shoeProducts = [
   {
-    name: "Classic Loafer",
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_2921.JPG-yZtfma6p7UK058BetYkwJkCCTHOF8t.jpeg",
+    name: "Brogue Flat",
+    image: "/shoes/brogue-flat.jpg",
   },
   {
-    name: "Perforated Flat",
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_2922.JPG-ufbRWxhQunEeVwdKtpRbsqSrqLgQuJ.jpeg",
+    name: "Brown Loafer",
+    image: "/shoes/brown-loafer.png",
   },
   {
-    name: "Brogue Style",
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_2924.JPG-txvBrC8DFsu22cvvYIJk5YU2iqXJWu.jpeg",
+    name: "Jelly Sandal",
+    image: "/shoes/jelly-sandal.png",
   },
   {
-    name: "Slip-On",
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_2923.JPG-MWW5RiIuEE66BcqUfEYsc05QAZ1UrR.jpeg",
+    name: "Green Lace-Up",
+    image: "/shoes/green-lace-up.png",
   },
   {
-    name: "Sneaker Style",
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_2925.JPG-xIisx1mCGSuKHI5yngZjosRbpS72d3.jpeg",
+    name: "Black Sneaker",
+    image: "/shoes/black-sneaker.png",
   },
 ]
 

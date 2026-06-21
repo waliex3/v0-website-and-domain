@@ -52,11 +52,11 @@ export const translations = {
         "Neon Yellow": "Neon Yellow",
       },
       shoeNames: {
-        "Classic Loafer": "Classic Loafer",
-        "Perforated Flat": "Perforated Flat",
-        "Brogue Style": "Brogue Style",
-        "Slip-On": "Slip-On",
-        "Sneaker Style": "Sneaker Style",
+        "Brogue Flat": "Brogue Flat",
+        "Brown Loafer": "Brown Loafer",
+        "Jelly Sandal": "Jelly Sandal",
+        "Green Lace-Up": "Green Lace-Up",
+        "Black Sneaker": "Black Sneaker",
       },
     },
     about: {
@@ -208,11 +208,11 @@ export const translations = {
         "Neon Yellow": "أصفر نيون",
       },
       shoeNames: {
-        "Classic Loafer": "حذاء كلاسيكي",
-        "Perforated Flat": "حذاء مثقوب مسطح",
-        "Brogue Style": "نمط بروغ",
-        "Slip-On": "سهل الارتداء",
-        "Sneaker Style": "نمط رياضي",
+        "Brogue Flat": "حذاء باليرينا أسود",
+        "Brown Loafer": "حذاء لوفر بني",
+        "Jelly Sandal": "صندل جيلي شفاف",
+        "Green Lace-Up": "حذاء مطاطي أخضر",
+        "Black Sneaker": "حذاء رياضي أسود",
       },
     },
     about: {
