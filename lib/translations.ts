@@ -152,6 +152,10 @@ export const translations = {
         shoes: "PVC Shoes",
         custom: "Custom Orders",
       },
+      legal: {
+        privacy: "Privacy Policy",
+        terms: "Terms of Service",
+      },
     },
   },
 
@@ -307,6 +311,10 @@ export const translations = {
         rope: "حبل PP (بيان)",
         shoes: "أحذية PVC",
         custom: "طلبات مخصصة",
+      },
+      legal: {
+        privacy: "سياسة الخصوصية",
+        terms: "شروط الخدمة",
       },
     },
   },

@@ -123,11 +123,17 @@ export function Footer() {
             <p className="text-sm text-white/60">
               {new Date().getFullYear()} {t.copyright}
             </p>
-            <p className="text-sm text-white/60">
+            <div className="flex items-center gap-6 text-sm text-white/60">
+              <Link href="/privacy" className="hover:text-white transition-colors">
+                {t.legal.privacy}
+              </Link>
+              <Link href="/terms" className="hover:text-white transition-colors">
+                {t.legal.terms}
+              </Link>
               <Link href="https://www.elmueizfactory.com" className="hover:text-white transition-colors">
                 www.elmueizfactory.com
               </Link>
-            </p>
+            </div>
           </div>
         </div>
       </div>
